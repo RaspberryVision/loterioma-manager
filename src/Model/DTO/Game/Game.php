@@ -2,20 +2,22 @@
 
 namespace App\Model\DTO\Game;
 
-class Game
+use JsonSerializable;
+
+class Game implements JsonSerializable
 {
     /**
-     * @var int
+     * @var int|null
      */
     private $id;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $type;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
@@ -27,7 +29,7 @@ class Game
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -45,7 +47,7 @@ class Game
     /**
      * @return int
      */
-    public function getType(): int
+    public function getType(): ?int
     {
         return $this->type;
     }
@@ -63,7 +65,7 @@ class Game
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -95,4 +97,27 @@ class Game
         $this->description = $description;
         return $this;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'type' => $this->type
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __set($name, $value): void
+    {
+        $this->$name = $value;
+    }
+
+
 }
