@@ -27,6 +27,11 @@ class Game implements JsonSerializable
     private $description;
 
     /**
+     * @var GeneratorConfig
+     */
+    private $generatorConfig;
+
+    /**
      * @return int
      */
     public function getId(): ?int
@@ -99,6 +104,24 @@ class Game implements JsonSerializable
     }
 
     /**
+     * @return GeneratorConfig
+     */
+    public function getGeneratorConfig(): ?GeneratorConfig
+    {
+        return $this->generatorConfig;
+    }
+
+    /**
+     * @param GeneratorConfig $generatorConfig
+     * @return Game
+     */
+    public function setGeneratorConfig(GeneratorConfig $generatorConfig): Game
+    {
+        $this->generatorConfig = $generatorConfig;
+        return $this;
+    }
+
+    /**
      * @inheritDoc
      */
     public function jsonSerialize()
@@ -107,7 +130,13 @@ class Game implements JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'type' => $this->type
+            'type' => $this->type,
+            'generatorConfig' => [
+                'seed' => $this->generatorConfig->getSeed(),
+                'min' => $this->generatorConfig->getMin(),
+                'max' => $this->generatorConfig->getMax(),
+                'format' => [$this->generatorConfig->getFormat()],
+            ]
         ];
     }
 
