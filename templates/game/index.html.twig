@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GameController!{% endblock %}
+
+{% block body %}
+Elements {{ list|length }}
+    <a href="{{ path('web_game_create') }}">Create new</a>
+{% endblock %}
