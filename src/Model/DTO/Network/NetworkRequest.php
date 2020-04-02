@@ -39,7 +39,7 @@ class NetworkRequest implements NetworkRequestInterface
      * @param string $endpoint
      * @param string $method
      * @param string $componentHash
-     * @param array|string $body
+     * @param array|string|object $body
      */
     public function __construct(string $endpoint, string $method, string $componentHash, $body)
     {
@@ -52,9 +52,9 @@ class NetworkRequest implements NetworkRequestInterface
     /**
      * Prepare request params to send.
      *
-     * @return array
+     * @return object|array|string
      */
-    public function getRequestParams(): array
+    public function getRequestParams()
     {
         return $this->body;
     }

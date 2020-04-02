@@ -14,7 +14,7 @@ interface NetworkRequestInterface
 
     public function getComponentHash(): string;
 
-    public function getRequestParams(): array;
+    public function getRequestParams();
 
     public function getMethod(): string;
 }
