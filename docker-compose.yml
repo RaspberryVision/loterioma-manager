@@ -1,0 +1,42 @@
+version: '3.5'
+services:
+    loterioma_manager:
+        build: .docker/php
+        container_name: loterioma_manager
+        stdin_open: true
+        tty: true
+        ports:
+          - 9910:80
+        environment:
+          - APACHE_DOCUMENT_ROOT=/var/www/html/public
+        volumes:
+          - .:/var/www/html
+        networks:
+          - my-proxy-net
+
+    loterioma_manager_qa:
+        build: .docker/phpqa
+        container_name: loterioma_manager_qa
+        stdin_open: true
+        tty: true
+        depends_on:
+          - loterioma_manager
+        environment:
+          - PHPQA_HOME_DIR=/phpqa
+          - PHPQA_CODE_DIR=${PHPQA_HOME_DIR}/code
+          - PHPQA_LOGS_DIR=${PHPQA_HOME_DIR}/logs
+          - PHPQA_TEST_DIR=${PHPQA_HOME_DIR}/code
+          - PHPQA_ENGINEER_HOST=loterioma_engineer
+          - PHPQA_ENGINEER_PORT=80
+          - PHPQA_MACHINE_NAME=dev-local-rm
+          - PHPQA_COMPONENT_NAME=manager
+        volumes:
+          - ./src:/code
+          - ./.docker/phpqa/results:/logs
+        networks:
+          - my-proxy-net
+
+networks:
+    my-proxy-net:
+        external: true
+        name: loterioma-net
