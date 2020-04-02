@@ -71,7 +71,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="web_game_create")
+     * @Route("/edit/{id}", name="web_game_edit")
      * @param Request $request
      * @param DataStoreHelper $dataStoreHelper
      * @param $id
