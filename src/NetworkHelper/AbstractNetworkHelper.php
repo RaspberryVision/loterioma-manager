@@ -16,6 +16,8 @@ namespace App\NetworkHelper;
 use App\Model\DTO\Network\NetworkResponse;
 use App\Model\DTO\Network\NetworkRequestInterface;
 use App\Model\DTO\Network\NetworkResponseInterface;
+use JsonSerializable;
+use LogicException;
 
 abstract class AbstractNetworkHelper
 {
@@ -79,23 +81,18 @@ abstract class AbstractNetworkHelper
         curl_setopt($ch, CURLOPT_URL, $this->getRequestUrl($networkRequest->getEndpoint()));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $networkRequest->getMethod());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'LM-COMP-HASH: ' . $networkRequest->getComponentHash(),
-            'LM-TIME: ' . date('Y-m-d H:i:s'),
-            'LM-REQUEST-HASH: ' . uniqid('eng_rng_', true),
-            'Content-Type: application/ld+json'
-        ]);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getHeaders($networkRequest));
 
         if ('POST' === $networkRequest->getMethod()) {
             curl_setopt($ch, CURLOPT_POST, 1);
         }
 
-        if (is_array($networkRequest->getRequestParams()) || (is_object($networkRequest->getRequestParams()) && $networkRequest->getRequestParams() instanceof \JsonSerializable)) {
+        if (is_array($networkRequest->getRequestParams()) || (is_object($networkRequest->getRequestParams()) && $networkRequest->getRequestParams() instanceof JsonSerializable)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($networkRequest->getRequestParams()));
         } elseif (is_string($networkRequest->getRequestParams())) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $networkRequest->getRequestParams());
         } else {
-            throw new \LogicException('Wrong format data');
+            throw new LogicException('Wrong format data');
         }
 
         $response = curl_exec($ch);
@@ -135,5 +132,28 @@ abstract class AbstractNetworkHelper
             $this->port,
             $endpoint
         );
+    }
+
+    /**
+     * Get request headers.
+     *
+     * @param NetworkRequestInterface $networkRequest
+     * @return array
+     */
+    private function getHeaders(NetworkRequestInterface $networkRequest): array
+    {
+        $headers = [
+            'LM-COMP-HASH: ' . $networkRequest->getComponentHash(),
+            'LM-TIME: ' . date('Y-m-d H:i:s'),
+            'LM-REQUEST-HASH: ' . uniqid('eng_rng_', true),
+        ];
+
+        if ('PATCH' === $networkRequest->getMethod()) {
+            $headers[] =  'Content-Type: application/merge-patch+json';
+        } else {
+            $headers[] =  'Content-Type: application/ld+json';
+        }
+
+        return $headers;
     }
 }
