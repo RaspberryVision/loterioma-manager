@@ -90,8 +90,12 @@ abstract class AbstractNetworkHelper
             curl_setopt($ch, CURLOPT_POST, 1);
         }
 
-        if (count($networkRequest->getRequestParams()) > 0) {
+        if (is_array($networkRequest->getRequestParams()) || (is_object($networkRequest->getRequestParams()) && $networkRequest->getRequestParams() instanceof \JsonSerializable)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($networkRequest->getRequestParams()));
+        } elseif (is_string($networkRequest->getRequestParams())) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $networkRequest->getRequestParams());
+        } else {
+            throw new \LogicException('Wrong format data');
         }
 
         $response = curl_exec($ch);
