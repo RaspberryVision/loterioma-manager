@@ -29,8 +29,8 @@ class UserRegistrationHandler  implements MessageHandlerInterface
         $user = json_decode($message->getContent());
 
         $user1 = new User();
-        $user1->setEmail($user->id . '@cos@o2.pl')
-            ->setPassword($user->id);
+        $user1->setEmail($user->email)
+            ->setPassword($user->password);
 
         $this->entityManager->persist($user1);
         $this->entityManager->flush();
