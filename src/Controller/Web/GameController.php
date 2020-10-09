@@ -2,9 +2,10 @@
 
 namespace App\Controller\Web;
 
+use App\Entity\Game;
 use App\Form\GameType;
 use App\Message\Game\GameCreated;
-use App\Model\DTO\Game\Game;
+use App\Message\Game\GameEdited;
 use App\Model\DTO\Network\NetworkRequest;
 use App\NetworkHelper\DataStore\DataStoreHelper;
 use App\NetworkHelper\ModelBuilder;
@@ -66,8 +67,9 @@ class GameController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->dispatchMessage(new GameCreated(json_encode($game->dto())));
 
-            $this->getDoctrine()->getManager()->persist($game);
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($game);
+            $entityManager->flush();
 
             return $this->redirectToRoute('web_game_index');
         }
@@ -84,19 +86,18 @@ class GameController extends AbstractController
      * @param $id
      * @return Response
      */
-    public function edit(Request $request, DataStoreHelper $dataStoreHelper, $id): Response
+    public function edit(Request $request, Game $game): Response
     {
-        $game = $dataStoreHelper->fetchGame($id);
-
-        if (!$game) {
-            throw new \LogicException('Invalid game id');
-        }
-
         $form = $this->createForm(GameType::class, $game);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $response = $dataStoreHelper->updateGame($game);
+            $this->dispatchMessage(new GameEdited(json_encode($game->dto())));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($game);
+            $entityManager->flush();
+
 
             return $this->redirectToRoute('web_game_index');
         }

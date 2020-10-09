@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Model\DTO\Game\Game;
+use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +15,6 @@ class GameType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('type')
-            ->add('generatorConfig', GeneratorConfigType::class)
         ;
     }
 
