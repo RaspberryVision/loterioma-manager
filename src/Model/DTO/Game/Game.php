@@ -148,5 +148,15 @@ class Game implements JsonSerializable
         $this->$name = $value;
     }
 
+    public function dto()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'type' => $this->type,
+        ];
+    }
+
 
 }

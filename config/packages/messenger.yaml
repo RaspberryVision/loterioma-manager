@@ -10,4 +10,5 @@ framework:
 
     routing:
       # Route your messages to the transports
-      'App\Message\UserRegistration': async_priority_normal
+      'App\Message\UserRegistration': async_priority_high
+      'App\Message\Game\GameCreated': async_priority_high

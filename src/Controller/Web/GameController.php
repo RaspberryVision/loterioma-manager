@@ -3,6 +3,7 @@
 namespace App\Controller\Web;
 
 use App\Form\GameType;
+use App\Message\Game\GameCreated;
 use App\Model\DTO\Game\Game;
 use App\Model\DTO\Network\NetworkRequest;
 use App\NetworkHelper\DataStore\DataStoreHelper;
@@ -60,7 +61,9 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $response = $dataStoreHelper->storeGame($game);
+            //$response = $dataStoreHelper->storeGame($game);
+
+            $this->dispatchMessage(new GameCreated(json_encode($game->dto())));
 
             return $this->redirectToRoute('web_game_index');
         }
