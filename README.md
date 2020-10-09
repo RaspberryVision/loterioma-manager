@@ -13,3 +13,7 @@ Stack:
 - list of games types
 - show games history
  
+ ## Todo
+ - dto
+ - consume sdk
+ - bootstrap

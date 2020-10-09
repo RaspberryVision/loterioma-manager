@@ -9,6 +9,7 @@ use App\Model\DTO\Network\NetworkRequest;
 use App\NetworkHelper\DataStore\DataStoreHelper;
 use App\NetworkHelper\ModelBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,17 +54,20 @@ class GameController extends AbstractController
 
     /**
      * @Route("/create", name="web_game_create")
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
-    public function create(Request $request, DataStoreHelper $dataStoreHelper)
+    public function create(Request $request)
     {
         $game = new Game();
         $form = $this->createForm(GameType::class, $game);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$response = $dataStoreHelper->storeGame($game);
-
             $this->dispatchMessage(new GameCreated(json_encode($game->dto())));
+
+            $this->getDoctrine()->getManager()->persist($game);
+            $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('web_game_index');
         }
