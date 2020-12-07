@@ -4,7 +4,7 @@
 namespace App\Message\Game;
 
 
-class GameEdited
+class GameUpdated
 {
     private $content;
 

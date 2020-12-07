@@ -3,6 +3,20 @@
 {% block title %}Hello GameController!{% endblock %}
 
 {% block body %}
-Elements {{ list|length }}
+    Games {{ games|length }}
     <a href="{{ path('web_game_create') }}">Create new</a>
+
+    {% if games|length %}
+        <ul>
+            {% for game in games %}
+                <li>
+                    {{ game.name }}
+                    <a href="{{ path('web_game_edit', {game: game.id}) }}">Edit</a>
+                    <a href="{{ path('web_game_show', {game: game.id}) }}">Show</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No items
+    {% endif %}
 {% endblock %}

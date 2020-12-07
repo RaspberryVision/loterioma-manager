@@ -5,10 +5,11 @@ namespace App\Controller\Web;
 use App\Entity\Game;
 use App\Form\GameType;
 use App\Message\Game\GameCreated;
-use App\Message\Game\GameEdited;
+use App\Message\Game\GameUpdated;
 use App\Model\DTO\Network\NetworkRequest;
 use App\NetworkHelper\DataStore\DataStoreHelper;
 use App\NetworkHelper\ModelBuilder;
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,31 +24,23 @@ class GameController extends AbstractController
     /**
      * @Route("/", name="web_game_index")
      * @param Request $request
-     * @param DataStoreHelper $dataStoreHelper
      * @return Response
      */
-    public function index(Request $request, DataStoreHelper $dataStoreHelper): Response
+    public function index(Request $request, GameRepository $gameRepository): Response
     {
         return $this->render('game/index.html.twig', [
-            'list' => $dataStoreHelper->fetchGames()
+            'games' => $gameRepository->findAll()
         ]);
     }
 
     /**
-     * @Route("/show/{id}", name="web_game_show")
+     * @Route("/show/{game}", name="web_game_show")
      * @param Request $request
-     * @param DataStoreHelper $dataStoreHelper
-     * @param $id
+     * @param Game $game
      * @return Response
      */
-    public function show(Request $request, DataStoreHelper $dataStoreHelper, $id): Response
+    public function show(Request $request, Game $game): Response
     {
-        $game = $dataStoreHelper->fetchGame($id);
-
-        if (!$game) {
-            throw new \LogicException('Invalid game id');
-        }
-
         return $this->render('game/show.html.twig', [
             'game' => $game
         ]);
@@ -80,10 +73,9 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="web_game_edit")
+     * @Route("/edit/{game}", name="web_game_edit")
      * @param Request $request
-     * @param DataStoreHelper $dataStoreHelper
-     * @param $id
+     * @param Game $game
      * @return Response
      */
     public function edit(Request $request, Game $game): Response
@@ -92,7 +84,7 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->dispatchMessage(new GameEdited(json_encode($game->dto())));
+            $this->dispatchMessage(new GameUpdated(json_encode($game->dto())));
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($game);
