@@ -6,9 +6,6 @@ use App\Entity\Game;
 use App\Form\GameType;
 use App\Message\Game\GameCreated;
 use App\Message\Game\GameUpdated;
-use App\Model\DTO\Network\NetworkRequest;
-use App\NetworkHelper\DataStore\DataStoreHelper;
-use App\NetworkHelper\ModelBuilder;
 use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,6 +21,7 @@ class GameController extends AbstractController
     /**
      * @Route("/", name="web_game_index")
      * @param Request $request
+     * @param GameRepository $gameRepository
      * @return Response
      */
     public function index(Request $request, GameRepository $gameRepository): Response
@@ -89,7 +87,6 @@ class GameController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($game);
             $entityManager->flush();
-
 
             return $this->redirectToRoute('web_game_index');
         }
