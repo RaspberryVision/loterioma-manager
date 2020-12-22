@@ -3,20 +3,38 @@
 {% block title %}Hello GameController!{% endblock %}
 
 {% block body %}
-    Games {{ games|length }}
+
+    <h2>Games {{ games|length }}</h2>
     <a href="{{ path('web_game_create') }}">Create new</a>
 
     {% if games|length %}
-        <ul>
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+            </tr>
+            </thead>
+            <tbody>
+
             {% for game in games %}
-                <li>
-                    {{ game.name }}
-                    <a href="{{ path('web_game_edit', {game: game.id}) }}">Edit</a>
-                    <a href="{{ path('web_game_show', {game: game.id}) }}">Show</a>
-                </li>
+                <tr>
+                    <td>1,015</td>
+                    <td>sodales</td>
+                    <td>ligula</td>
+                    <td>in</td>
+                    <td><a href="{{ path('web_game_edit', {game: game.id}) }}">Edit</a>
+                        <a href="{{ path('web_game_show', {game: game.id}) }}">Show</a></td>
+                </tr>
             {% endfor %}
-        </ul>
+            </tbody>
+        </table>
     {% else %}
         No items
     {% endif %}
+
+
 {% endblock %}
