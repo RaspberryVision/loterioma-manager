@@ -12,22 +12,24 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
 
             {% for game in games %}
                 <tr>
-                    <td>1,015</td>
-                    <td>sodales</td>
-                    <td>ligula</td>
-                    <td>in</td>
-                    <td><a href="{{ path('web_game_edit', {game: game.id}) }}">Edit</a>
-                        <a href="{{ path('web_game_show', {game: game.id}) }}">Show</a></td>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ game.name }}</td>
+                    <td>{{ game.type }}</td>
+                    <td>{{ game.description }}</td>
+                    <td>
+                        <a href="{{ path('web_game_edit', {game: game.id}) }}">Edit</a>
+                        <a href="{{ path('web_game_show', {game: game.id}) }}">Show</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
