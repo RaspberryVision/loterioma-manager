@@ -15,6 +15,7 @@ class GameType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('type')
+            ->add('generatorConfig', GeneratorConfigType::class)
         ;
     }
 
