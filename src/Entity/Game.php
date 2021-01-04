@@ -2,16 +2,17 @@
 
 namespace App\Entity;
 
+use App\Repository\GameRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\GameRepository")
+ * @ORM\Entity(repositoryClass=GameRepository::class)
  */
 class Game
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -30,6 +31,12 @@ class Game
      * @ORM\Column(type="integer")
      */
     private $type;
+
+    /**
+     * @ORM\OneToOne(targetEntity=GeneratorConfig::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $generatorConfig;
 
     public function getId(): ?int
     {
@@ -72,13 +79,15 @@ class Game
         return $this;
     }
 
-    public function dto()
+    public function getGeneratorConfig(): ?GeneratorConfig
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'type' => $this->type,
-        ];
+        return $this->generatorConfig;
+    }
+
+    public function setGeneratorConfig(GeneratorConfig $generatorConfig): self
+    {
+        $this->generatorConfig = $generatorConfig;
+
+        return $this;
     }
 }
