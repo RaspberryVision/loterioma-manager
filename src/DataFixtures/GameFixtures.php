@@ -11,20 +11,67 @@ class GameFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $game = new Game();
-        $game->setName(1)
-            ->setDescription(1)
-            ->setType(1);
+        foreach ($this->getData() as $item) {
+            $game = new Game();
+            $game->setName($item['name'])
+                ->setDescription($item['description'])
+                ->setType($item['type']);
 
-        $config = new GeneratorConfig();
-        $config->setSeed(1)
-            ->setMin(1)
-            ->setMax(10)
-            ->setFormat([1]);
+            $config = new GeneratorConfig();
+            $config->setSeed($item['generator']['seed'])
+                ->setMin($item['generator']['min'])
+                ->setMax($item['generator']['max'])
+                ->setFormat($item['generator']['format']);
 
-        $game->setGeneratorConfig($config);
+            $game->setGeneratorConfig($config);
 
-        $manager->persist($game);
+            $manager->persist($game);
+        }
+
         $manager->flush();
+    }
+
+    /**
+     * @todo Extract this to json dictionary.
+     *
+     * @return array[]
+     */
+    private function getData()
+    {
+        return [
+            [
+                'name' => 'Simple Dice',
+                'description' => 'Simple dice game simulator',
+                'type' => Game::TYPE_DICE,
+                'generator' => [
+                    'seed' => 1,
+                    'min' => 1,
+                    'max' => 10,
+                    'format' => [1]
+                ]
+            ],
+            [
+                'name' => 'Tiny Dice',
+                'description' => 'Tiny dice game simulator',
+                'type' => Game::TYPE_DICE,
+                'generator' => [
+                    'seed' => 1,
+                    'min' => 1,
+                    'max' => 4,
+                    'format' => [1]
+                ]
+            ],
+            [
+                'name' => 'Large Dice',
+                'description' => 'Large dice game simulator',
+                'type' => Game::TYPE_DICE,
+                'generator' => [
+                    'seed' => 1,
+                    'min' => 1,
+                    'max' => 100,
+                    'format' => [1]
+                ]
+            ],
+        ];
     }
 }
