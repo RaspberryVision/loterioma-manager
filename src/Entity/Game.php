@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Game
 {
+    public const TYPE_DICE = 1;
+    public const TYPE_SLOTS = 2;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
