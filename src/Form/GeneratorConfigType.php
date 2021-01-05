@@ -6,7 +6,6 @@ use App\Entity\GeneratorConfig;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,27 +16,34 @@ class GeneratorConfigType extends AbstractType
         $builder
             ->add('min')
             ->add('max')
-            ->add('format', TextareaType::class)
-            ->add('seed')
-        ;
+            ->add(
+                'format',
+                TextareaType::class,
+                [
+                    'trim' => false,
+                ]
+            )
+            ->add('seed');
 
         $builder->get('format')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($tagsAsArray) {
-                    // transform the array to a string
-                    return $tagsAsArray;
-                },
-                function ($tagsAsString) {
-                    // transform the string back to an array
-                    return $tagsAsString;
-                }
-            ));
+            ->addModelTransformer(
+                new CallbackTransformer(
+                    function ($tagsAsArray) {
+                        return implode(',', $tagsAsArray);
+                    },
+                    function ($tagsAsString) {
+                        return explode("\r\n", $tagsAsString);
+                    }
+                )
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => GeneratorConfig::class
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => GeneratorConfig::class,
+            ]
+        );
     }
 }
