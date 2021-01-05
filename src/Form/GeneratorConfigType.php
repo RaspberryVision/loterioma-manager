@@ -2,8 +2,7 @@
 
 namespace App\Form;
 
-use App\Model\DTO\Game\Game;
-use App\Model\DTO\Game\GeneratorConfig;
+use App\Entity\GeneratorConfig;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,7 +23,6 @@ class GeneratorConfigType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => GeneratorConfig::class
-            // Configure your form options here
         ]);
     }
 }
