@@ -5,7 +5,7 @@
 {% block body %}
 
     <h2>Games {{ games|length }}</h2>
-    <a href="{{ path('web_game_create') }}">Create new</a>
+    <a href="{{ path('web_game_create') }}" class="btn btn-primary">Create new</a>
 
     {% if games|length %}
         <table class="table table-striped table-sm">
@@ -27,8 +27,10 @@
                     <td>{{ game.type }}</td>
                     <td>{{ game.description }}</td>
                     <td>
-                        <a href="{{ path('web_game_edit', {game: game.id}) }}">Edit</a>
-                        <a href="{{ path('web_game_show', {game: game.id}) }}">Show</a>
+                        <a href="{{ path('web_game_edit', {game: game.id}) }}"
+                           class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ path('web_game_show', {game: game.id}) }}"
+                           class="btn btn-success btn-sm">Show</a>
                     </td>
                 </tr>
             {% endfor %}
