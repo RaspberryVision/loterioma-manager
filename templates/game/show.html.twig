@@ -5,4 +5,13 @@
 {% block body %}
     <h4>{{ game.name }}</h4>
     <p>{{ game.description }}</p>
+    <p>{{ game.type }}</p>
+    <p>{{ game.generatorConfig.seed }}</p>
+    <p>{{ game.generatorConfig.min }}</p>
+    <p>{{ game.generatorConfig.max }}</p>
+    <p>
+        {% for row in game.generatorConfig.format %}
+            {{ row }}
+        {% endfor %}
+    </p>
 {% endblock %}
