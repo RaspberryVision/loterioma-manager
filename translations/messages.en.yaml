@@ -1,4 +1,9 @@
+app:
+  title: Loterioma Manager
+
 menu:
+  dashboard:
+    title: Dashboard
   games:
     title: Games
 
