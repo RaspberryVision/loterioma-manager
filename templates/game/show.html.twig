@@ -5,7 +5,7 @@
 {% block body %}
     <h4>{{ game.name }}</h4>
     <p>{{ game.description }}</p>
-    <p>{{ game.type }}</p>
+    <p>{{ game|game_type }}</p>
     <p>{{ game.generatorConfig.seed }}</p>
     <p>{{ game.generatorConfig.min }}</p>
     <p>{{ game.generatorConfig.max }}</p>
