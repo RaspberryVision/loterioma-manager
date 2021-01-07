@@ -4,18 +4,20 @@
 
 {% block body %}
 
-    <h2>Games {{ games|length }}</h2>
-    <a href="{{ path('web_game_create') }}" class="btn btn-primary">Create new</a>
+    <h2>{{ 'game.title'|trans }} {{ games|length }}</h2>
+    <a href="{{ path('web_game_create') }}" class="btn btn-primary">
+        {{ 'game.actions.create'|trans }}
+    </a>
 
     {% if games|length %}
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th>{{ 'game.name'|trans }}</th>
+                <th>{{ 'game.type'|trans }}</th>
+                <th>{{ 'game.description'|trans }}</th>
+                <th>{{ 'game.actions.title'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -28,17 +30,20 @@
                     <td>{{ game.description }}</td>
                     <td>
                         <a href="{{ path('web_game_edit', {game: game.id}) }}"
-                           class="btn btn-warning btn-sm">Edit</a>
+                           class="btn btn-warning btn-sm">
+                            {{ 'game.actions.edit'|trans }}
+                        </a>
                         <a href="{{ path('web_game_show', {game: game.id}) }}"
-                           class="btn btn-success btn-sm">Show</a>
+                           class="btn btn-success btn-sm">
+                            {{ 'game.actions.show'|trans }}
+                        </a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     {% else %}
-        No items
+        {{ 'game.no_items'|trans }}
     {% endif %}
-
 
 {% endblock %}
