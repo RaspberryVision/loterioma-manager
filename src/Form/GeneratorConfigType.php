@@ -29,6 +29,10 @@ class GeneratorConfigType extends AbstractType
             ->addModelTransformer(
                 new CallbackTransformer(
                     function ($tagsAsArray) {
+                        if (!$tagsAsArray) {
+                            return '';
+                        }
+
                         return implode(',', $tagsAsArray);
                     },
                     function ($tagsAsString) {

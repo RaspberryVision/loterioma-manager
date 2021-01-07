@@ -101,6 +101,12 @@ class Game
             'name' => $this->name,
             'description' => $this->description,
             'type' => $this->type,
+            'generatorConfig' => [
+                'min' => $this->getGeneratorConfig()->getMin(),
+                'max' => $this->getGeneratorConfig()->getMax(),
+                'seed' => $this->getGeneratorConfig()->getSeed(),
+                'format' => $this->getGeneratorConfig()->getFormat()
+            ]
         ];
     }
 }
