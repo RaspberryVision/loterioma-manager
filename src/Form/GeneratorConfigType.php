@@ -33,7 +33,10 @@ class GeneratorConfigType extends AbstractType
                             return '';
                         }
 
-                        return implode(',', $tagsAsArray);
+                        return implode("\r\n", array_map(function ($tagLine) {
+                            var_dump($tagLine);
+                            return implode(', ', $tagLine);
+                        }, $tagsAsArray));
                     },
                     function ($tagsAsString) {
                         return explode("\r\n", $tagsAsString);
