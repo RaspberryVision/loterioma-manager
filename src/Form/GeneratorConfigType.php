@@ -28,18 +28,23 @@ class GeneratorConfigType extends AbstractType
         $builder->get('format')
             ->addModelTransformer(
                 new CallbackTransformer(
-                    function ($tagsAsArray) {
-                        if (!$tagsAsArray) {
+                    function ($array) {
+                        if (!$array) {
                             return '';
                         }
 
-                        return implode("\r\n", array_map(function ($tagLine) {
-                            var_dump($tagLine);
-                            return implode(', ', $tagLine);
-                        }, $tagsAsArray));
+                        return implode(
+                            "\r\n",
+                            array_map(
+                                function ($tagLine) {
+                                    return $tagLine;
+                                },
+                                $array
+                            )
+                        );
                     },
-                    function ($tagsAsString) {
-                        return explode("\r\n", $tagsAsString);
+                    function ($string) {
+                        return explode("\r\n", $string);
                     }
                 )
             );
