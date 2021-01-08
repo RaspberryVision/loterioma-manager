@@ -56,7 +56,7 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->dispatchMessage(new GameCreated(json_encode($game->dto())));
+            //$this->dispatchMessage(new GameCreated(json_encode($game->dto())));
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($game);
@@ -82,7 +82,7 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->dispatchMessage(new GameUpdated(json_encode($game->dto())));
+            //$this->dispatchMessage(new GameUpdated(json_encode($game->dto())));
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($game);
