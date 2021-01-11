@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Message\Game\GameUpdated;
+use App\Message\Game\GameSynced;
 use App\Repository\GameRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -51,7 +51,7 @@ class SyncGameCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         foreach ($games = $this->gameRepository->findAll() as $game) {
-            $this->messageBus->dispatch(new GameUpdated(json_encode($game->dto())));
+            $this->messageBus->dispatch(new GameSynced(json_encode($game->dto())));
         }
 
         $io->success(sprintf('Synced games: %d', count($games)));
