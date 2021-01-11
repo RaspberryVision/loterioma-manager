@@ -80,7 +80,7 @@ class GameFixtures extends Fixture
                     'seed' => 1,
                     'min' => 1,
                     'max' => 15,
-                    'format' => [1, 1, 1, 1]
+                    'format' => [[1, 1, 1, 1]]
                 ]
             ],
             [

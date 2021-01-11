@@ -37,6 +37,9 @@ class GeneratorConfigType extends AbstractType
                             "\r\n",
                             array_map(
                                 function ($tagLine) {
+                                    if (is_array($tagLine)) {
+                                        return implode(', ', $tagLine);
+                                    }
                                     return $tagLine;
                                 },
                                 $array
