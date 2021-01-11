@@ -47,7 +47,7 @@ class GameFixtures extends Fixture
                     'seed' => 1,
                     'min' => 1,
                     'max' => 10,
-                    'format' => [1]
+                    'format' => [[1]]
                 ]
             ],
             [
@@ -58,7 +58,7 @@ class GameFixtures extends Fixture
                     'seed' => 1,
                     'min' => 1,
                     'max' => 4,
-                    'format' => [1]
+                    'format' => [[1]]
                 ]
             ],
             [
@@ -69,7 +69,7 @@ class GameFixtures extends Fixture
                     'seed' => 1,
                     'min' => 1,
                     'max' => 100,
-                    'format' => [1]
+                    'format' => [[1]]
                 ]
             ],
             [

@@ -47,6 +47,7 @@ class GeneratorConfigType extends AbstractType
                         );
                     },
                     function ($string) {
+                        return [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
                         return explode("\r\n", $string);
                     }
                 )
