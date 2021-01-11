@@ -38,7 +38,7 @@ class GeneratorConfigType extends AbstractType
                             array_map(
                                 function ($tagLine) {
                                     if (is_array($tagLine)) {
-                                        return implode(', ', $tagLine);
+                                        return implode(',', $tagLine);
                                     }
                                     return $tagLine;
                                 },
@@ -47,8 +47,9 @@ class GeneratorConfigType extends AbstractType
                         );
                     },
                     function ($string) {
-                        return [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
-                        return explode("\r\n", $string);
+                        return array_map(function ($line) {
+                            return explode(',', $line);
+                        }, explode("\r\n", $string));
                     }
                 )
             );
