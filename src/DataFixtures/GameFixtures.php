@@ -72,6 +72,47 @@ class GameFixtures extends Fixture
                     'format' => [1]
                 ]
             ],
+            [
+                'name' => 'Single Line Slots',
+                'description' => 'Single line slots game',
+                'type' => Game::TYPE_SLOTS,
+                'generator' => [
+                    'seed' => 1,
+                    'min' => 1,
+                    'max' => 15,
+                    'format' => [1, 1, 1, 1]
+                ]
+            ],
+            [
+                'name' => 'Classic Slots 3x3',
+                'description' => 'Classic slots game with 3x3 fields',
+                'type' => Game::TYPE_SLOTS,
+                'generator' => [
+                    'seed' => 1,
+                    'min' => 1,
+                    'max' => 15,
+                    'format' => [
+                        [1, 1, 1],
+                        [1, 1, 1],
+                        [1, 1, 1]
+                    ]
+                ]
+            ],
+            [
+                'name' => 'Crazy Slots',
+                'description' => 'Crazy slots game with irregular matrix format',
+                'type' => Game::TYPE_SLOTS,
+                'generator' => [
+                    'seed' => 1,
+                    'min' => 1,
+                    'max' => 15,
+                    'format' => [
+                        [1, -1, 1, -1, 1],
+                        [1, 1, 1, 1, 1],
+                        [1, -1, 1, -1, 1]
+                    ]
+                ]
+            ]
         ];
     }
 }
