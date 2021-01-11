@@ -50,7 +50,7 @@ class SyncGameCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        foreach ($games = $this->gameRepository->findAll() as $game) {
+        foreach ($games = [$this->gameRepository->findAll()] as $game) {
             $this->messageBus->dispatch(new GameSynced(json_encode($game->dto())));
         }
 
