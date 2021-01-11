@@ -11,7 +11,10 @@
     <p>{{ game.generatorConfig.max }}</p>
     <p>
         {% for row in game.generatorConfig.format %}
-            {{ row }}
+            {% for field in row %}
+                {{ field }}
+            {% endfor %}
+            <br>
         {% endfor %}
     </p>
 {% endblock %}
