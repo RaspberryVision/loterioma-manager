@@ -31,6 +31,6 @@ class GameExtension extends AbstractExtension
      */
     public function getGameType(Game $game)
     {
-        return 'a' . $game->getType();
+        return sprintf('game.types.%s', $game->getType());
     }
 }
