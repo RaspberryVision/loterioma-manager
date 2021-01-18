@@ -3,7 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Game;
+use App\Entity\GameSymbol;
 use App\Entity\GeneratorConfig;
+use App\Entity\SlotsCombination;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -22,8 +24,19 @@ class GameFixtures extends Fixture
                 ->setMin($item['generator']['min'])
                 ->setMax($item['generator']['max'])
                 ->setFormat($item['generator']['format']);
-
             $game->setGeneratorConfig($config);
+
+            if (isset($item['symbols'])) {
+                foreach ($item['symbols'] as $symbol) {
+                    $game->addSymbol(new GameSymbol($symbol['name'], $symbol['rate'], $symbol['image']));
+                }
+            }
+
+            if (isset($item['combinations'])) {
+                foreach ($item['combinations'] as $combination) {
+                    $game->addCombination(new SlotsCombination($combination['name'], $combination['fields']));
+                }
+            }
 
             $manager->persist($game);
         }
@@ -32,9 +45,9 @@ class GameFixtures extends Fixture
     }
 
     /**
+     * @return array[]
      * @todo Extract this to json dictionary.
      *
-     * @return array[]
      */
     private function getData()
     {
@@ -47,8 +60,8 @@ class GameFixtures extends Fixture
                     'seed' => 1,
                     'min' => 1,
                     'max' => 10,
-                    'format' => [[1]]
-                ]
+                    'format' => [[1]],
+                ],
             ],
             [
                 'name' => 'Tiny Dice',
@@ -58,8 +71,8 @@ class GameFixtures extends Fixture
                     'seed' => 1,
                     'min' => 1,
                     'max' => 4,
-                    'format' => [[1]]
-                ]
+                    'format' => [[1]],
+                ],
             ],
             [
                 'name' => 'Large Dice',
@@ -69,8 +82,8 @@ class GameFixtures extends Fixture
                     'seed' => 1,
                     'min' => 1,
                     'max' => 100,
-                    'format' => [[1]]
-                ]
+                    'format' => [[1]],
+                ],
             ],
             [
                 'name' => 'Single Line Slots',
@@ -79,36 +92,46 @@ class GameFixtures extends Fixture
                 'generator' => [
                     'seed' => 1,
                     'min' => 1,
-                    'max' => 15,
-                    'format' => [[1, 1, 1, 1]]
+                    'max' => 6,
+                    'format' => [[1, 1, 1, 1]],
                 ],
                 'symbols' => [
                     [
                         'name' => 'As',
                         'rate' => 100,
-                        'image' => 'A'
+                        'image' => 'A',
                     ],
                     [
                         'name' => 'Krol',
                         'rate' => 50,
-                        'image' => 'K'
+                        'image' => 'K',
                     ],
                     [
                         'name' => 'Dama',
                         'rate' => 25,
-                        'image' => 'D'
+                        'image' => 'D',
                     ],
                     [
                         'name' => 'Joker',
                         'rate' => 10,
-                        'image' => 'J'
+                        'image' => 'J',
                     ],
                     [
                         'name' => 'Mars',
                         'rate' => 5,
-                        'image' => 'M'
+                        'image' => 'M',
                     ],
-                ]
+                ],
+                'combinations' => [
+                    [
+                        'name' => 'Line1',
+                        'fields' => [
+                            [0, 0],
+                            [0, 1],
+                            [0, 2],
+                        ]
+                    ]
+                ],
             ],
             [
                 'name' => 'Classic Slots 3x3',
@@ -121,9 +144,9 @@ class GameFixtures extends Fixture
                     'format' => [
                         [1, 1, 1],
                         [1, 1, 1],
-                        [1, 1, 1]
-                    ]
-                ]
+                        [1, 1, 1],
+                    ],
+                ],
             ],
             [
                 'name' => 'Crazy Slots',
@@ -136,10 +159,10 @@ class GameFixtures extends Fixture
                     'format' => [
                         [1, -1, 1, -1, 1],
                         [1, 1, 1, 1, 1],
-                        [1, -1, 1, -1, 1]
-                    ]
-                ]
-            ]
+                        [1, -1, 1, -1, 1],
+                    ],
+                ],
+            ],
         ];
     }
 }

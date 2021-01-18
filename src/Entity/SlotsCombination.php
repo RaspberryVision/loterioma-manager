@@ -33,6 +33,17 @@ class SlotsCombination
      */
     private $game;
 
+    /**
+     * SlotsCombination constructor.
+     * @param string|null $name
+     * @param array|null $fields
+     */
+    public function __construct(?string $name = '', ?array $fields = [])
+    {
+        $this->name = $name;
+        $this->fields = $fields;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
