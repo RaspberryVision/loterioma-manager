@@ -52,6 +52,30 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col">
+            <ul id="game-combinations-list" data-hello-target="errorMessage"
+                data-prototype="{{ include('prototype/game_combination.html.twig', {
+                    'form': form.combinations.vars.prototype,
+                    'el_id' : 0
+                })|e('html_attr') }}"
+                data-widget-tags="{{ '<li></li>'|e }}"
+                data-widget-counter="{{ form.combinations|length }}">
+                {% for combinationForm in form.combinations %}
+                    {{ include('prototype/game_combination.html.twig', {
+                        'form': combinationForm.vars.form,
+                        'el_id' : 0
+                    }) }}
+                {% endfor %}
+            </ul>
+
+            <button type="button"
+                    class="add-dynamic-form-widget"
+                    data-list-selector="#game-combinations-list">Add Combination
+            </button>
+        </div>
+    </div>
+
     <input type="submit" value="Create">
     {{ form_end(form) }}
 
