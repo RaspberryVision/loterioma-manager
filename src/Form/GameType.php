@@ -40,6 +40,20 @@ class GameType extends AbstractType
                         'attr' => ['class' => 'email-box'],
                     ],
                 ]
+            )
+            ->add(
+                'combinations',
+                CollectionType::class,
+                [
+                    'label' => false,
+                    'entry_type' => SlotsCombinationType::class,
+                    'allow_add' => true,
+                    'prototype' => true,
+                    'by_reference' => false,
+                    'entry_options' => [
+                        'attr' => ['class' => 'email-box'],
+                    ],
+                ]
             );
     }
 
