@@ -18,11 +18,13 @@
         {% endfor %}
     </p>
     <p>
-        {% for symbol in game.symbols %}
+    {% for symbol in game.symbols %}
+        <div class="row">
             {{ symbol.name }}
             {{ symbol.rate }}
             {{ symbol.image }}
-        {% endfor %}
+        </div>
+    {% endfor %}
     </p>
     <p>
     {% for combination in game.combinations %}
