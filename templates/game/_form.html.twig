@@ -3,5 +3,27 @@
     {{ form_row(form.type) }}
     {{ form_row(form.description) }}
     {{ form_row(form.generatorConfig) }}
-    <input type="submit" value="Create">
+
+<ul id="game-symbols-list"
+    data-prototype="{{ include('prototype/game_symbol.html.twig', {
+        'form': form.symbols.vars.prototype,
+        'el_id' : 0
+    })|e('html_attr')  }}"
+    data-widget-tags="{{ '<li></li>'|e }}"
+    data-widget-counter="{{ form.symbols|length }}">
+    {% for symbolForm in form.symbols %}
+        {{ include('prototype/game_symbol.html.twig', {
+            'form': form.symbols.vars.prototype,
+            'el_id' : 0
+        }) }}
+    {% endfor %}
+</ul>
+
+<button type="button"
+        class="add-dynamic-form-widget"
+        data-list-selector="#game-symbols-list">Add Symbol
+</button>
+
+
+<input type="submit" value="Create">
 {{ form_end(form) }}

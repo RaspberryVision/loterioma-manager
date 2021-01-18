@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,7 +26,21 @@ class GameType extends AbstractType
                     ],
                 ]
             )
-            ->add('generatorConfig', GeneratorConfigType::class);
+            ->add('generatorConfig', GeneratorConfigType::class)
+            ->add(
+                'symbols',
+                CollectionType::class,
+                [
+                    'label' => false,
+                    'entry_type' => GameSymbolType::class,
+                    'allow_add' => true,
+                    'prototype' => true,
+                    'by_reference' => false,
+                    'entry_options' => [
+                        'attr' => ['class' => 'email-box'],
+                    ],
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

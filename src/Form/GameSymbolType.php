@@ -15,7 +15,6 @@ class GameSymbolType extends AbstractType
             ->add('name')
             ->add('rate')
             ->add('image')
-            ->add('game')
         ;
     }
 
