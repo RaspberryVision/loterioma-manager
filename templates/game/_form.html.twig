@@ -6,7 +6,7 @@
     {{ form_row(form.description) }}
     {{ form_row(form.generatorConfig) }}
 
-    <ul id="game-symbols-list"
+    <ul id="game-symbols-list" data-hello-target="errorMessage"
         data-prototype="{{ include('prototype/game_symbol.html.twig', {
             'form': form.symbols.vars.prototype,
             'el_id' : 0
@@ -24,7 +24,7 @@
 
     <button type="button"
             class="add-dynamic-form-widget"
-            data-list-selector="#game-symbols-list" data-action="click->hello#connect">Add Symbol
+            data-list-selector="#game-symbols-list" data-action="click->hello#addNew">Add Symbol
     </button>
 
 
