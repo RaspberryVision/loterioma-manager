@@ -48,9 +48,15 @@ class Game
      */
     private $symbols;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SlotsCombination::class, mappedBy="game")
+     */
+    private $combinations;
+
     public function __construct()
     {
         $this->symbols = new ArrayCollection();
+        $this->combinations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,6 +152,36 @@ class Game
             // set the owning side to null (unless already changed)
             if ($symbol->getGame() === $this) {
                 $symbol->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SlotsCombination[]
+     */
+    public function getCombinations(): Collection
+    {
+        return $this->combinations;
+    }
+
+    public function addCombination(SlotsCombination $combination): self
+    {
+        if (!$this->combinations->contains($combination)) {
+            $this->combinations[] = $combination;
+            $combination->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCombination(SlotsCombination $combination): self
+    {
+        if ($this->combinations->removeElement($combination)) {
+            // set the owning side to null (unless already changed)
+            if ($combination->getGame() === $this) {
+                $combination->setGame(null);
             }
         }
 
