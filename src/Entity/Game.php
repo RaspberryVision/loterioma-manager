@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,16 @@ class Game
      * @ORM\JoinColumn(nullable=false)
      */
     private $generatorConfig;
+
+    /**
+     * @ORM\OneToMany(targetEntity=GameSymbol::class, mappedBy="game")
+     */
+    private $symbols;
+
+    public function __construct()
+    {
+        $this->symbols = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -108,5 +120,35 @@ class Game
                 'format' => $this->getGeneratorConfig()->getFormat()
             ]
         ];
+    }
+
+    /**
+     * @return Collection|GameSymbol[]
+     */
+    public function getSymbols(): Collection
+    {
+        return $this->symbols;
+    }
+
+    public function addSymbol(GameSymbol $symbol): self
+    {
+        if (!$this->symbols->contains($symbol)) {
+            $this->symbols[] = $symbol;
+            $symbol->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSymbol(GameSymbol $symbol): self
+    {
+        if ($this->symbols->removeElement($symbol)) {
+            // set the owning side to null (unless already changed)
+            if ($symbol->getGame() === $this) {
+                $symbol->setGame(null);
+            }
+        }
+
+        return $this;
     }
 }
