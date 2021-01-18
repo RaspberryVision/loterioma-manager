@@ -49,7 +49,7 @@ class Game
     private $symbols;
 
     /**
-     * @ORM\OneToMany(targetEntity=SlotsCombination::class, mappedBy="game")
+     * @ORM\OneToMany(targetEntity=SlotsCombination::class, mappedBy="game", cascade={"PERSIST"})
      */
     private $combinations;
 

@@ -11,3 +11,14 @@ import './styles/app.css';
 require('jquery');
 
 require('./collection-form');
+
+$(function () {
+    $(document).on('click', '.combination-field-trigger', function () {
+        $(this).addClass('selected');
+        let fields = [];
+        $($(this).data('box')).find('.selected').each(function (index, element) {
+            fields.push($(this).data('index'));
+        });
+        $('#' + $(this).data('target')).val(JSON.stringify(fields));
+    });
+})
