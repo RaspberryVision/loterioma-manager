@@ -25,11 +25,26 @@
         {% endfor %}
     </p>
     <p>
-        {% for combination in game.combinations %}
-            {{ combination.name }}
-            {% for fields in combination.fields %}
-                {{ fields[0] }} - {{ fields[1] }}
+    {% for combination in game.combinations %}
+        <h4>{{ combination.name }}</h4>
+        <div class="row">
+
+            {% for row in game.generatorConfig.format %}
+                {% set rowId = loop.index0 %}
+
+                {% for field in row %}
+                    {% set columnId = loop.index0 %}
+
+                    {% if combination.fields[columnId][0] == rowId and combination.fields[columnId][1] == columnId %}
+                        X
+                    {% else %}
+                        1
+                    {% endif %}
+
+                {% endfor %}
+                <br>
             {% endfor %}
-        {% endfor %}
+        </div>
+    {% endfor %}
     </p>
 {% endblock %}
