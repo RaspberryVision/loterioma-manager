@@ -1,32 +1,56 @@
 <div data-controller="hello">
 
     {{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.type) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.generatorConfig) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.type) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.description) }}
+        </div>
+    </div>
 
-    <ul id="game-symbols-list" data-hello-target="errorMessage"
-        data-prototype="{{ include('prototype/game_symbol.html.twig', {
-            'form': form.symbols.vars.prototype,
-            'el_id' : 0
-        })|e('html_attr') }}"
-        data-widget-tags="{{ '<li></li>'|e }}"
-        data-widget-counter="{{ form.symbols|length }}">
-        {% for symbolForm in form.symbols %}
-            {{ include('prototype/game_symbol.html.twig', {
-                'form': form.symbols.vars.prototype,
-                'el_id' : 0
-            }) }}
-        {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.generatorConfig.min) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.generatorConfig.max) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.generatorConfig.seed) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.generatorConfig.format) }}
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col">
+            <ul id="game-symbols-list" data-hello-target="errorMessage"
+                data-prototype="{{ include('prototype/game_symbol.html.twig', {
+                    'form': form.symbols.vars.prototype,
+                    'el_id' : 0
+                })|e('html_attr') }}"
+                data-widget-tags="{{ '<li></li>'|e }}"
+                data-widget-counter="{{ form.symbols|length }}">
+                {% for symbolForm in form.symbols %}
+                    {{ include('prototype/game_symbol.html.twig', {
+                        'form': form.symbols.vars.prototype,
+                        'el_id' : 0
+                    }) }}
+                {% endfor %}
+            </ul>
 
-    <button type="button"
-            class="add-dynamic-form-widget"
-            data-list-selector="#game-symbols-list" data-action="click->hello#addNew">Add Symbol
-    </button>
-
+            <button type="button"
+                    class="add-dynamic-form-widget"
+                    data-list-selector="#game-symbols-list" data-action="click->hello#addNew">Add Symbol
+            </button>
+        </div>
+    </div>
 
     <input type="submit" value="Create">
     {{ form_end(form) }}
