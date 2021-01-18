@@ -10,7 +10,7 @@
                     {% for field in row %}
                         <div style="width:30px;height:30px; float:left"
                              class="combination-field-trigger"
-                             data-index="[{{ rowId }}][{{ loop.index0 }}]"
+                             data-index="{{ rowId }},{{ loop.index0 }}"
                              data-target="{{ form.fields.vars.id }}"
                              data-box=".combination-box-{{ form.vars.id }}">{{ field }}</div>
                     {% endfor %}

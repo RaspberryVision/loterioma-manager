@@ -17,7 +17,7 @@ $(function () {
         $(this).addClass('selected');
         let fields = [];
         $($(this).data('box')).find('.selected').each(function (index, element) {
-            fields.push($(this).data('index'));
+            fields.push(JSON.parse("[" + $(this).data('index') + "]"));
         });
         $('#' + $(this).data('target')).val(JSON.stringify(fields));
     });

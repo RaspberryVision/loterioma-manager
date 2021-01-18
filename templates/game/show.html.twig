@@ -17,4 +17,19 @@
             <br>
         {% endfor %}
     </p>
+    <p>
+        {% for symbol in game.symbols %}
+            {{ symbol.name }}
+            {{ symbol.rate }}
+            {{ symbol.image }}
+        {% endfor %}
+    </p>
+    <p>
+        {% for combination in game.combinations %}
+            {{ combination.name }}
+            {% for fields in combination.fields %}
+                {{ fields[0] }} - {{ fields[1] }}
+            {% endfor %}
+        {% endfor %}
+    </p>
 {% endblock %}
