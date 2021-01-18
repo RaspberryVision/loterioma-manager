@@ -81,6 +81,33 @@ class GameFixtures extends Fixture
                     'min' => 1,
                     'max' => 15,
                     'format' => [[1, 1, 1, 1]]
+                ],
+                'symbols' => [
+                    [
+                        'name' => 'As',
+                        'rate' => 100,
+                        'image' => 'A'
+                    ],
+                    [
+                        'name' => 'Krol',
+                        'rate' => 50,
+                        'image' => 'K'
+                    ],
+                    [
+                        'name' => 'Dama',
+                        'rate' => 25,
+                        'image' => 'D'
+                    ],
+                    [
+                        'name' => 'Joker',
+                        'rate' => 10,
+                        'image' => 'J'
+                    ],
+                    [
+                        'name' => 'Mars',
+                        'rate' => 5,
+                        'image' => 'M'
+                    ],
                 ]
             ],
             [

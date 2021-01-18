@@ -44,7 +44,7 @@ class Game
     private $generatorConfig;
 
     /**
-     * @ORM\OneToMany(targetEntity=GameSymbol::class, mappedBy="game")
+     * @ORM\OneToMany(targetEntity=GameSymbol::class, mappedBy="game", cascade={"PERSIST"})
      */
     private $symbols;
 

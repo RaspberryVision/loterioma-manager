@@ -38,6 +38,20 @@ class GameSymbol
      */
     private $game;
 
+    /**
+     * GameSymbol constructor.
+     * @param string $name
+     * @param float $rate
+     * @param string|null $image
+     */
+    public function __construct(?string $name = '', ?float $rate = 1.0, ?string $image = '')
+    {
+        $this->name = $name;
+        $this->rate = $rate;
+        $this->image = $image;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
