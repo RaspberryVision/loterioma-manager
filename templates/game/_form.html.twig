@@ -39,7 +39,7 @@
                 data-widget-counter="{{ form.symbols|length }}">
                 {% for symbolForm in form.symbols %}
                     {{ include('prototype/game_symbol.html.twig', {
-                        'form': form.symbols.vars.prototype,
+                        'form': symbolForm.vars.form,
                         'el_id' : 0
                     }) }}
                 {% endfor %}
